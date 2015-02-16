@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col-md-9">
+    <%= image_tag(@post.picture_url, width: '100%') if @post.picture.present? %>
+  </div>
+
+  <div class="col-md-3">
+    <p><b>Post URL: </b><%= @post.url %></p>
+    <p><b>Thumbnail: </b><%= image_tag(@post.picture_url(:thumb)) if @post.picture %></p>
+    <p>
+      <%= link_to 'Edit', edit_post_path(@post) %> |
+      <%= link_to 'Destroy', @post, data: { confirm: 'Are you sure?' }, method: :delete %> |
+      <%= link_to 'Back', posts_path %>
+    </p>
+
+    <p>
+      <%= link_to 'New Comment', new_comment_path(post_id: @post.id) %>
+    </p>
+    <% @post.comments.each do |comment| %>
+      <p><%= link_to "#{comment.body}", edit_comment_path(comment) %></p>
+    <% end %>
+  </div>
+</div>
